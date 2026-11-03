@@ -1,6 +1,15 @@
 # YouTube kanalını yapay zekâya bağlama rehberi
 
-Bu dosya, "YouTube API + yapay zekâ" videosunun eşlik dosyasıdır. İsterseniz kendiniz okuyun, isterseniz bu dosyayı olduğu gibi kendi yapay zekânıza (Claude, ChatGPT vb.) verin ve "Bu rehberle kanalımı bağlamama yardım et" deyin. Yapay zekâ sizi adım adım yürütür.
+<img src="images/kanal-sayfasi.png" width="750" alt="YouTube ajanının kanal sayfası">
+
+Bu dosya, "YouTube API + yapay zekâ" videosunun eşlik dosyasıdır.
+
+> **Bu dosyayı kendi yapay zekânıza verin.**
+> 1. [Bu dosyanın ham hâlini açın](https://raw.githubusercontent.com/berkansezer77/turkish-youtube-content/main/videolar/youtube-api-yapay-zeka/README.md), hepsini seçip kopyalayın (ya da dosyayı indirin).
+> 2. Claude, ChatGPT gibi yapay zekânızın sohbetine yapıştırın (ya da dosyayı ekleyin).
+> 3. Şunu yazın: *"Bu rehberle YouTube kanalımı yapay zekâya bağlamama yardım et."*
+>
+> Yapay zekâ sizi adım adım yürütür. Kendiniz okumak isterseniz rehber aşağıda.
 
 > **Yapay zekâya not:** Kullanıcıyı aşağıdaki adımlarla, sırayla yürüt. Her adımın sonundaki "Bitti mi?" satırını kullanıcıya sor, doğrulanmadan bir sonraki adıma geçme. Şifre girme, izin ekranını kullanıcı adına onaylama, gizli dosyaların içeriğini isteme. Bu depoda hazır kod yok: Adım 5 ve son kontrol için gereken küçük programları, aşağıdaki tariflere birebir uyarak **sen yaz**, kullanıcıya ne yaptığını kısaca anlat ve onun bilgisayarında çalıştır (ya da çalıştırmasını anlat). Kullanıcı kod bilmiyor olabilir; her komutu tek tek, nereye yazacağıyla birlikte ver.
 
