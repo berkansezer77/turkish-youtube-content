@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanal Ajanı · Örnek Sayfa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<!--
+  ÖRNEK SAYFA. Bütün sayılar, başlıklar, kelimeler ve yorumlar UYDURMADIR; gerçek bir kanala ait değildir.
+  Sayfa tek dosyadır, hiçbir yere bağlanmaz. Kendi sayfanızı yaptırırken yapay zekânıza bu dosyayı verip
+  "aynı düzeni benim kanalımın verisiyle kur" diyebilirsiniz. Verinin hangi API'den geleceği, aşağıdaki
+  ORNEK_VERI nesnesinde her alanın yanında yazıyor.
+-->
+<style>
+:root{
+  --zemin:#0a0711; --panel:#100b18; --panel2:#150f1f; --cizgi:#241a33;
+  --metin:#f3eef8; --metin2:#9b91a8; --metin3:#6b6278;
+  --pembe:#d4537e; --yesil:#3dd9a3; --amber:#f2b134; --mavi:#6aa8ff; --mor:#b07cff; --mercan:#ff7a8a;
+  --baslik:"Space Grotesk",system-ui,sans-serif; --sans:"Hanken Grotesk",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--zemin);color:var(--metin);font:15px/1.5 var(--sans)}
+a{color:inherit}
+.sar{max-width:1180px;margin:0 auto;padding:20px 16px 60px;display:flex;flex-direction:column;gap:18px}
+.uyari{background:#2a1a08;border:1px solid #5a3a10;color:#f6d39a;border-radius:10px;padding:10px 14px;font-size:13.5px}
+.uyari b{color:var(--amber)}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--pembe),var(--mor));display:grid;place-items:center;font:700 22px var(--baslik)}
+h1{font:600 24px var(--baslik);margin:0}
+.alt{color:var(--metin2);font-size:13.5px;display:flex;gap:14px;flex-wrap:wrap}
+.alt b{color:var(--metin)}
+.sag{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+.secici{display:flex;background:var(--panel);border:1px solid var(--cizgi);border-radius:10px;padding:3px}
+.secici button{background:none;border:0;color:var(--metin2);font:500 13px var(--sans);padding:6px 11px;border-radius:7px;cursor:pointer}
+.secici button.acik{background:var(--pembe);color:#fff}
+.secici button:focus-visible{outline:2px solid var(--mavi)}
+.kutu{background:var(--panel);border:1px solid var(--cizgi);border-radius:16px;padding:18px}
+.kutu h2{font:600 18px var(--baslik);margin:0 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nokta{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff9ec0,var(--pembe));flex:none}
+.etiket{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--metin3)}
+.aciklama{color:var(--metin2);font-size:13.5px;margin:0 0 12px}
+.iki{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+@media (max-width:860px){.iki{grid-template-columns:1fr}}
+/* yeni video */
+.vitrin{display:grid;grid-template-columns:240px 1fr;gap:18px}
+@media (max-width:620px){.vitrin{grid-template-columns:1fr}}
+.kapak{aspect-ratio:16/9;border-radius:12px;background:linear-gradient(135deg,#3a1d5c,#d4537e 60%,#f2b134);display:grid;place-items:center;font:700 20px var(--baslik);text-align:center;padding:12px;text-shadow:0 2px 10px #0008}
+.rozet{display:inline-block;font:600 11px var(--mono);padding:3px 8px;border-radius:99px;background:#0f2e24;color:var(--yesil);border:1px solid #1d5a46}
+.rozet.gizli{background:#2b2108;color:var(--amber);border-color:#5a4410}
+.bolum{display:flex;gap:10px;font-size:14px;padding:3px 0}
+.bolum span:first-child{font-family:var(--mono);color:var(--metin3);min-width:42px}
+.adim{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.adim span{font-size:12.5px;padding:3px 9px;border-radius:99px;background:var(--panel2);border:1px solid var(--cizgi);color:var(--metin2)}
+.adim span.ok{color:var(--yesil);border-color:#1d5a46}
+.dugmeler{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.dugme{font:600 13px var(--sans);padding:8px 14px;border-radius:9px;border:1px solid var(--cizgi);background:var(--panel2);color:var(--metin);cursor:pointer}
+.dugme.ana{background:var(--pembe);border-color:var(--pembe);color:#fff}
+.dugme:focus-visible{outline:2px solid var(--mavi)}
+/* ölçüler */
+.olculer{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.olcu{background:var(--panel2);border:1px solid var(--cizgi);border-radius:12px;padding:12px 14px}
+.olcu .ad{font-size:12.5px;color:var(--metin2)}
+.olcu .deger{font:500 28px var(--mono);font-variant-numeric:tabular-nums;margin:2px 0}
+.olcu .kiyas{font:400 12px var(--mono);color:var(--metin3)}
+.olcu .kiyas .art{color:var(--yesil)} .olcu .kiyas .eks{color:var(--mercan)}
+.serit{height:4px;border-radius:2px;background:var(--cizgi);margin-top:8px;position:relative}
+.serit i{position:absolute;inset:0 auto 0 0;border-radius:2px;background:var(--yesil)}
+.serit b{position:absolute;top:-4px;width:2px;height:12px;background:var(--metin2)}
+/* öneriler */
+.oneriler{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.oneri{background:var(--panel2);border:1px solid var(--cizgi);border-left:3px solid var(--mavi);border-radius:12px;padding:14px}
+.oneri.kitle{border-left-color:var(--amber)} .oneri.teknik{border-left-color:var(--mor)}
+.oneri h3{font:600 15px var(--sans);margin:4px 0 6px}
+.oneri p{margin:0 0 8px;color:var(--metin2);font-size:13.5px}
+.yap{background:#0c0814;border-radius:8px;padding:8px 10px;font-size:13px}
+.yap .etiket{display:block;color:var(--yesil);margin-bottom:2px}
+/* grafikler */
+svg{display:block;width:100%;height:auto}
+.eksen{stroke:var(--cizgi)} .eksen-yazi{fill:var(--metin3);font:11px var(--mono)}
+.liste{display:flex;flex-direction:column;gap:7px}
+.satir{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:13.5px}
+.satir .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--cizgi);overflow:hidden}
+.satir .bar i{display:block;height:100%;border-radius:3px}
+.satir .sayi{font-family:var(--mono);color:var(--metin2);font-variant-numeric:tabular-nums}
+.kelimeler{display:flex;flex-wrap:wrap;gap:8px}
+.kelime{background:var(--panel2);border:1px solid var(--cizgi);border-radius:99px;padding:5px 11px;font-size:13px}
+.kelime.yok{border-color:#5a3a10;color:var(--amber)}
+.kelime small{font-family:var(--mono);color:var(--metin3);margin-left:6px}
+/* yorumlar */
+.yorum{background:var(--panel2);border:1px solid var(--cizgi);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.yorum .kim{font-size:12.5px;color:var(--metin2)}
+.taslak{border-left:2px solid var(--pembe);padding:6px 10px;background:#140c1c;border-radius:0 8px 8px 0;font-size:13.5px}
+.taslak .etiket{display:block;color:var(--pembe)}
+.kural{display:flex;gap:10px;align-items:center;background:#0f2e24;border:1px solid #1d5a46;border-radius:12px;padding:12px 14px;font-size:14px}
+.kural b{color:var(--yesil)}
+footer{color:var(--metin3);font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:no-preference){.kutu{animation:gel .4s ease both}@keyframes gel{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+<div class="sar">
+
+  <div class="uyari"><b>Örnek sayfa.</b> Bütün sayılar, başlıklar, arama kelimeleri ve yorumlar uydurmadır; gerçek bir kanala ait değildir. Kendi sayfanızı yaptırırken bu dosyayı yapay zekânıza verip "aynı düzeni benim kanalımın verisiyle kur" diyebilirsiniz.</div>
+
+  <header>
+    <div class="avatar" aria-hidden="true">Ö</div>
+    <div>
+      <h1 id="kanal-ad"></h1>
+      <div class="alt" id="kanal-alt"></div>
+    </div>
+    <div class="sag">
+      <div class="secici" role="group" aria-label="Dönem">
+        <button type="button">7 gün</button><button type="button" class="acik">28 gün</button><button type="button">90 gün</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="kutu" aria-labelledby="b-yeni">
+    <h2 id="b-yeni"><span class="nokta"></span>Yeni video <span class="etiket">gizli yüklenen videolar 10 dakikada bir kontrol edilir</span></h2>
+    <div class="vitrin">
+      <div class="kapak" id="yeni-kapak"></div>
+      <div>
+        <span class="rozet gizli">GİZLİ · onay bekliyor</span>
+        <h3 style="font:600 20px var(--baslik);margin:8px 0 4px" id="yeni-baslik"></h3>
+        <div class="adim" id="yeni-adim"></div>
+        <div id="yeni-bolumler"></div>
+        <div class="dugmeler">
+          <button class="dugme ana" type="button" title="Örnek: bu sayfada bir işlevi yok">Önizle ve onayla</button>
+          <button class="dugme" type="button" title="Örnek: bu sayfada bir işlevi yok">Açıklamayı düzenle</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="kural"><b>Kural:</b> Onay verilmeden YouTube'a hiçbir şey yazılmaz, hiçbir şey yayınlanmaz. Videolar her zaman gizli yüklenir.</div>
+
+  <section class="kutu" aria-labelledby="b-karne">
+    <h2 id="b-karne"><span class="nokta"></span>Son video karnesi <span class="etiket">kıyas: son 12 uzun videonun ortancası</span></h2>
+    <p class="aciklama">Her ölçünün altında kanalın kendi ortancası; dikey çizgi ortancayı gösterir.</p>
+    <div class="olculer" id="karne"></div>
+  </section>
+
+  <section class="kutu" aria-labelledby="b-oneri">
+    <h2 id="b-oneri"><span class="nokta"></span>Ajanın önerileri <span class="etiket">veri + kural → öneri</span></h2>
+    <p class="aciklama">Her öneri bir gözlem ve yapılacak bir iş içerir. Kanalda bir şey değiştirmez; uygulamak size kalır.</p>
+    <div class="oneriler" id="oneriler"></div>
+  </section>
+
+  <div class="iki">
+    <section class="kutu" aria-labelledby="b-gunluk">
+      <h2 id="b-gunluk"><span class="nokta"></span>Son 28 gün</h2>
+      <div class="olculer" id="ozet" style="margin:8px 0 14px"></div>
+      <div id="gunluk"></div>
+    </section>
+    <section class="kutu" aria-labelledby="b-ulke">
+      <h2 id="b-ulke"><span class="nokta"></span>Ülkeler</h2>
+      <p class="aciklama">İzlenme payı, son 28 gün.</p>
+      <div class="liste" id="ulkeler"></div>
+    </section>
+  </div>
+
+  <section class="kutu" aria-labelledby="b-tutma">
+    <h2 id="b-tutma"><span class="nokta"></span>İzleyicinin bıraktığı an <span class="etiket">son video · kalma eğrisi</span></h2>
+    <p class="aciklama" id="tutma-not"></p>
+    <div id="tutma"></div>
+  </section>
+
+  <div class="iki">
+    <section class="kutu" aria-labelledby="b-arama">
+      <h2 id="b-arama"><span class="nokta"></span>YouTube'da aranan kelimeler</h2>
+      <p class="aciklama">Sarı olanlar aranıyor ama hiçbir başlıkta ya da açıklamada geçmiyor.</p>
+      <div class="kelimeler" id="kelimeler"></div>
+    </section>
+    <section class="kutu" aria-labelledby="b-trafik">
+      <h2 id="b-trafik"><span class="nokta"></span>Seni nasıl buluyorlar</h2>
+      <p class="aciklama">Trafik kaynakları, son 28 gün.</p>
+      <div class="liste" id="trafik"></div>
+    </section>
+  </div>
+
+  <section class="kutu" aria-labelledby="b-yorum">
+    <h2 id="b-yorum"><span class="nokta"></span>Cevapsız yorumlar <span class="etiket">cevaplar taslaktır, gönderen sizsiniz</span></h2>
+    <div class="liste" id="yorumlar" style="gap:10px;margin-top:10px"></div>
+  </section>
+
+  <footer>Örnek sayfa · bütün veriler uydurmadır · Google'ın resmi YouTube Data, Analytics ve Reporting API'leriyle beslenecek şekilde tasarlandı</footer>
+</div>
+
+<script>
+// Bu nesne, gerçek sayfada API'lerden doldurulur. Her alanın kaynağı yanında yazıyor. Buradaki her şey UYDURMADIR.
+const ORNEK_VERI = {
+  kanal: { ad: "Örnek Kanal", kullanici: "@ornekkanal", abone: 1240, toplamIzlenme: 86400, video: 31 },   // Data API: channels (mine=true)
+  yeniVideo: {                                                                                                // Data API: videos (gizli yüklenen son video)
+    baslik: "Evde Bitki Sulama Sistemi Kurdum: 20 Liralık Parçalarla",
+    adimlar: [["Yüklendi", 1], ["Yazıya döküldü", 1], ["Başlık ve açıklama taslağı", 1], ["Bölümler", 1], ["Altyazılar (TR, EN)", 1], ["Onay", 0]],
+    bolumler: [["0:00", "Neden bu sistemi kurdum"], ["0:48", "Gereken parçalar"], ["2:15", "Hortum ve vana bağlantısı"], ["4:02", "Zamanlayıcıyı ayarlamak"], ["5:30", "Bir hafta sonra sonuç"]]
+  },
+  karne: [                                                                                                    // Analytics API (video bazında) + kanal ortancası
+    { ad: "İlk 2 gün izlenme", deger: "1.930", kiyas: "kanal 1.410", fark: "+%37", iyi: true, oran: .72, orta: .52 },
+    { ad: "Tıklama oranı", deger: "%5,1", kiyas: "kanal %4,6", fark: "+0,5 puan", iyi: true, oran: .51, orta: .46 },   // Reporting API
+    { ad: "30. saniyede izleyen", deger: "%68,2", kiyas: "kanal %61,0", fark: "+7,2 puan", iyi: true, oran: .68, orta: .61 },
+    { ad: "Ort. izlenme oranı", deger: "%38,5", kiyas: "kanal %41,2", fark: "-2,7 puan", iyi: false, oran: .385, orta: .412 },
+    { ad: "1.000 izlenmede abone", deger: "7,4", kiyas: "kanal 6,1", fark: "+%21", iyi: true, oran: .62, orta: .51 }
+  ],
+  oneriler: [                                                                                                 // yapay zekâ: veriyi kurallarla okur
+    { tur: "Keşif", sinif: "", baslik: "\"otomatik sulama nasıl yapılır\" diye aranıyorsun ama hiçbir videoda bu ifade geçmiyor",
+      gozlem: "Bu arama son 28 günde 64 izlenme getirdi; ifade başlık, açıklama ve etiketlerde yok.", yap: "Sulama videosunun açıklamasının ilk iki satırına ve etiketlerine bu ifadeyi ekle." },
+    { tur: "Kitle", sinif: "kitle", baslik: "Abonelerin izlenmedeki payı yalnız %9",
+      gozlem: "Kanal çoğunlukla yeni gelen izleyiciyle büyüyor; aboneler yeni videoları az görüyor.", yap: "Videonun ortasında kısa bir abone ve bildirim çağrısı yap; yeni videodan önce Topluluk sekmesinde duyur." },
+    { tur: "Teknik", sinif: "teknik", baslik: "Son 5 uzun videonun 3'ünde bölüm yok",
+      gozlem: "Bölümler Google aramasındaki 'önemli anlar' kutusunu besler.", yap: "Bu üç videonun açıklamasına zaman damgalı bölüm listesi ekle." }
+  ],
+  ozet: [ { ad: "İzlenme", deger: "9.870" }, { ad: "İzlenme süresi", deger: "612 sa" }, { ad: "Net abone", deger: "+58" } ],   // Analytics API: kanal
+  gunluk: [212,248,190,305,410,388,296,271,260,318,342,295,280,301,355,620,1180,840,560,430,388,350,322,298,341,366,310,292], // Analytics API: day boyutu
+  ulkeler: [ ["Türkiye", 71.4], ["Almanya", 8.2], ["Hollanda", 3.9], ["Azerbaycan", 3.1], ["ABD", 2.6], ["Diğer", 10.8] ],   // Analytics API: country boyutu
+  tutma: { sure: 372, egri: [1,.93,.86,.8,.76,.73,.71,.69,.68,.66,.65,.64,.62,.61,.6,.59,.58,.57,.56,.55,.47,.45,.44,.43,.42,.41,.4,.4,.39,.38,.37,.36,.35,.34,.33,.31,.3,.29,.28,.26,.24] }, // Analytics API: elapsedVideoTimeRatio (%1'lik dilimler; burada sade)
+  kelimeler: [ ["otomatik sulama nasıl yapılır", 64, 1], ["damla sulama", 41, 0], ["balkon bahçe", 33, 0], ["akıllı priz kurulumu", 29, 1], ["evde fide yetiştirme", 18, 0], ["zamanlayıcı ayarı", 12, 0] ], // Analytics API: insightTrafficSourceDetail
+  trafik: [ ["YouTube araması", 38, "var(--mavi)"], ["Önerilen videolar", 27, "var(--mor)"], ["Göz atma (ana sayfa)", 21, "var(--pembe)"], ["Dış siteler", 8, "var(--amber)"], ["Diğer", 6, "var(--metin3)"] ], // Analytics API: insightTrafficSourceType
+  yorumlar: [                                                                                                 // Data API: commentThreads (cevapsız olanlar)
+    { kim: "@izleyici_a · 2 saat önce", metin: "Vana 12 volt mu çalışıyor? Hangi adaptörü aldınız?", taslak: "Evet, 12 voltluk selenoid vana kullandım; 2 amperlik bir adaptör yeterli oldu. Parça listesi açıklamada." },
+    { kim: "@izleyici_b · dün", metin: "Kış aylarında boru donar mı?", taslak: "Balkon kapalı olduğu için sorun olmadı, ama açık alanda kışın hortumu boşaltmanızı öneririm." }
+  ]
+};
+
+const $ = id => document.getElementById(id);
+const sayi = n => n.toLocaleString("tr-TR");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const V = ORNEK_VERI;
+
+$("kanal-ad").textContent = V.kanal.ad;
+$("kanal-alt").innerHTML = `<span>${esc(V.kanal.kullanici)}</span><span><b>${sayi(V.kanal.abone)}</b> abone</span><span><b>${sayi(V.kanal.toplamIzlenme)}</b> toplam izlenme</span><span><b>${V.kanal.video}</b> video</span>`;
+
+$("yeni-kapak").textContent = "Örnek kapak";
+$("yeni-baslik").textContent = V.yeniVideo.baslik;
+$("yeni-adim").innerHTML = V.yeniVideo.adimlar.map(([a, ok]) => `<span class="${ok ? "ok" : ""}">${ok ? "✓ " : "… "}${esc(a)}</span>`).join("");
+$("yeni-bolumler").innerHTML = V.yeniVideo.bolumler.map(([t, a]) => `<div class="bolum"><span>${t}</span><span>${esc(a)}</span></div>`).join("");
+
+$("karne").innerHTML = V.karne.map(k => `<div class="olcu"><div class="ad">${esc(k.ad)}</div><div class="deger">${esc(k.deger)}</div>
+  <div class="kiyas">${esc(k.kiyas)} · <span class="${k.iyi ? "art" : "eks"}">${esc(k.fark)}</span></div>
+  <div class="serit" aria-hidden="true"><i style="width:${k.oran * 100}%;background:${k.iyi ? "var(--yesil)" : "var(--amber)"}"></i><b style="left:${k.orta * 100}%"></b></div></div>`).join("");
+
+$("oneriler").innerHTML = V.oneriler.map(o => `<article class="oneri ${o.sinif}"><span class="etiket">${esc(o.tur)}</span><h3>${esc(o.baslik)}</h3>
+  <p>${esc(o.gozlem)}</p><div class="yap"><span class="etiket">Ne yapmalı</span>${esc(o.yap)}</div></article>`).join("");
+
+$("ozet").innerHTML = V.ozet.map(k => `<div class="olcu"><div class="ad">${esc(k.ad)}</div><div class="deger" style="font-size:22px">${esc(k.deger)}</div></div>`).join("");
+
+// Günlük izlenme: alan grafiği
+(function () {
+  const d = V.gunluk, G = 640, Y = 180, p = 28, enb = Math.max(...d) * 1.1;
+  const x = i => p + i * (G - p - 8) / (d.length - 1), y = v => Y - 22 - v / enb * (Y - 40);
+  const cizgi = d.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  const tepe = d.indexOf(Math.max(...d));
+  const izgara = [0, .5, 1].map(f => `<line class="eksen" x1="${p}" x2="${G - 8}" y1="${y(enb / 1.1 * f)}" y2="${y(enb / 1.1 * f)}"/><text class="eksen-yazi" x="0" y="${y(enb / 1.1 * f) + 4}">${Math.round(enb / 1.1 * f)}</text>`).join("");
+  $("gunluk").innerHTML = `<svg viewBox="0 0 ${G} ${Y}" role="img" aria-label="Son 28 günün günlük izlenmesi">
+    <defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d4537e" stop-opacity=".45"/><stop offset="1" stop-color="#d4537e" stop-opacity="0"/></linearGradient></defs>
+    ${izgara}<path d="${cizgi}L${x(d.length - 1)},${Y - 22}L${x(0)},${Y - 22}Z" fill="url(#ga)"/>
+    <path d="${cizgi}" fill="none" stroke="#d4537e" stroke-width="2"/>
+    <circle cx="${x(tepe)}" cy="${y(d[tepe])}" r="4.5" fill="#f3eef8" stroke="#d4537e" stroke-width="2"/>
+    <text class="eksen-yazi" x="${x(tepe) + 8}" y="${y(d[tepe]) + 4}" style="fill:#f3eef8">${sayi(d[tepe])} · yeni video</text>
+    <text class="eksen-yazi" x="${p}" y="${Y - 4}">28 gün önce</text><text class="eksen-yazi" x="${G - 8}" y="${Y - 4}" text-anchor="end">dün</text></svg>`;
+})();
+
+$("ulkeler").innerHTML = V.ulkeler.map(([a, p]) => `<div class="satir"><span>${esc(a)}</span><span class="sayi">%${p.toLocaleString("tr-TR")}</span><span class="bar"><i style="width:${p}%;background:var(--yesil)"></i></span></div>`).join("");
+
+// Kalma eğrisi: en sert düşüş işaretli
+(function () {
+  const e = V.tutma.egri, sure = V.tutma.sure, G = 900, Y = 200, p = 34;
+  const x = i => p + i * (G - p - 10) / (e.length - 1), y = v => 14 + (1 - v) * (Y - 40);
+  let en = 0, ei = 1;
+  for (let i = 2; i < e.length; i++) { const f = e[i - 1] - e[i]; if (f > en && (i - 1) / (e.length - 1) * sure >= 30) { en = f; ei = i; } }
+  const sn = Math.round((ei - 1) / (e.length - 1) * sure), mmss = `${Math.floor(sn / 60)}:${String(sn % 60).padStart(2, "0")}`;
+  $("tutma-not").textContent = `En sert düşüş ${mmss} anında: izleyicilerin %${Math.round(en * 100)}'i burada ayrıldı. Ajan bu anı dökümden okur ve o saniyede ne konuşulduğunu söyler.`;
+  const cizgi = e.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  const izgara = [1, .5, 0].map(v => `<line class="eksen" x1="${p}" x2="${G - 10}" y1="${y(v)}" y2="${y(v)}"/><text class="eksen-yazi" x="0" y="${y(v) + 4}">%${v * 100}</text>`).join("");
+  $("tutma").innerHTML = `<svg viewBox="0 0 ${G} ${Y}" role="img" aria-label="Kalma eğrisi, en sert düşüş ${mmss}">
+    ${izgara}<rect x="${x(ei - 1)}" y="10" width="${x(ei) - x(ei - 1)}" height="${Y - 34}" fill="#ff7a8a" opacity=".14"/>
+    <path d="${cizgi}" fill="none" stroke="#6aa8ff" stroke-width="2"/>
+    <circle cx="${x(ei)}" cy="${y(e[ei])}" r="5" fill="#ff7a8a" stroke="#0a0711" stroke-width="2"/>
+    <text class="eksen-yazi" x="${x(ei) + 10}" y="${y(e[ei]) - 8}" style="fill:#ff7a8a">${mmss} · -%${Math.round(en * 100)}</text>
+    <text class="eksen-yazi" x="${p}" y="${Y - 6}">0:00</text><text class="eksen-yazi" x="${G - 10}" y="${Y - 6}" text-anchor="end">${Math.floor(sure / 60)}:${String(sure % 60).padStart(2, "0")}</text></svg>`;
+})();
+
+$("kelimeler").innerHTML = V.kelimeler.map(([k, n, yok]) => `<span class="kelime ${yok ? "yok" : ""}">${esc(k)}<small>${n}</small></span>`).join("");
+$("trafik").innerHTML = V.trafik.map(([a, p, r]) => `<div class="satir"><span>${esc(a)}</span><span class="sayi">%${p}</span><span class="bar"><i style="width:${p}%;background:${r}"></i></span></div>`).join("");
+$("yorumlar").innerHTML = V.yorumlar.map(y => `<div class="yorum"><div class="kim">${esc(y.kim)}</div><div>${esc(y.metin)}</div>
+  <div class="taslak"><span class="etiket">Cevap taslağı</span>${esc(y.taslak)}</div>
+  <div class="dugmeler" style="margin:0"><button class="dugme ana" type="button" title="Örnek: bu sayfada bir işlevi yok">Onayla ve gönder</button><button class="dugme" type="button" title="Örnek: bu sayfada bir işlevi yok">Düzenle</button></div></div>`).join("");
+
+document.querySelectorAll(".secici button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".secici button").forEach(x => x.classList.toggle("acik", x === b));
+}));
+</script>
+</body>
+</html>

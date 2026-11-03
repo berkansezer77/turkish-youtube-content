@@ -2,7 +2,7 @@
 
 Bu dosya, "YouTube API + yapay zekâ" videosunun eşlik dosyasıdır. İsterseniz kendiniz okuyun, isterseniz bu dosyayı olduğu gibi kendi yapay zekânıza (Claude, ChatGPT vb.) verin ve "Bu rehberle kanalımı bağlamama yardım et" deyin. Yapay zekâ sizi adım adım yürütür.
 
-> **Yapay zekâya not:** Kullanıcıyı aşağıdaki adımlarla, sırayla yürüt. Her adımın sonundaki "Bitti mi?" satırını kullanıcıya sor, doğrulanmadan bir sonraki adıma geçme. Şifre girme, izin ekranını kullanıcı adına onaylama, gizli dosyaların içeriğini isteme.
+> **Yapay zekâya not:** Kullanıcıyı aşağıdaki adımlarla, sırayla yürüt. Her adımın sonundaki "Bitti mi?" satırını kullanıcıya sor, doğrulanmadan bir sonraki adıma geçme. Şifre girme, izin ekranını kullanıcı adına onaylama, gizli dosyaların içeriğini isteme. Bu depoda hazır kod yok: Adım 5 ve son kontrol için gereken küçük programları, aşağıdaki tariflere birebir uyarak **sen yaz**, kullanıcıya ne yaptığını kısaca anlat ve onun bilgisayarında çalıştır (ya da çalıştırmasını anlat). Kullanıcı kod bilmiyor olabilir; her komutu tek tek, nereye yazacağıyla birlikte ver.
 
 ---
 
@@ -20,15 +20,15 @@ Bu dosya, "YouTube API + yapay zekâ" videosunun eşlik dosyasıdır. İsterseni
 |---|---|
 | Düz bir sohbet (ör. Claude, ChatGPT) | Bu dosyayı okur, adımları size tek tek anlatır. Tıklamaları siz yaparsınız. |
 | Tarayıcıyı kullanabilen bir araç (ör. Claude in Chrome) | Google Cloud ekranlarında sizin yerinize tıklar ve formları doldurur. Giriş ve izin yine sizde. |
-| Bilgisayarda çalışan bir ajan (ör. Claude Code) | Adım 5'teki bağlama betiğini çalıştırır, sonra isterseniz analiz sayfasını ve yükleme ajanını kurar (bölüm 10). |
+| Bilgisayarda çalışan bir ajan (ör. Claude Code) | Adım 5 ve son kontroldeki küçük programları bu rehberdeki tariften kendisi yazar ve çalıştırır; sonra isterseniz analiz sayfasını ve yükleme ajanını kurar (bölüm 10). |
 
-Not: Düz bir sohbet, kurulum bitse bile kanal verilerinizi kendiliğinden göremez. Verileri okumak için bağlantıyı kullanan bir programın (Adım 5 ve son kontrol betikleri ya da bir ajan) bilgisayarınızda çalışması gerekir.
+Not: Düz bir sohbet, kurulum bitse bile kanal verilerinizi kendiliğinden göremez. Verileri okumak için bağlantıyı kullanan bir programın bilgisayarınızda çalışması gerekir. En kolay yol bir ajan (Claude Code gibi) kullanmak: programı yazar ve çalıştırır. Düz sohbet kullanıyorsanız, sohbet programı yazar, siz Terminal'e yapıştırıp çalıştırırsınız.
 
 ## 2) Başlamadan önce
 
 - Kanalınızın bağlı olduğu **Google hesabı** (kanal bir marka hesabındaysa, o kanalı yöneten hesap).
 - Bir bilgisayar ve tarayıcı.
-- **Python 3** (Adım 5 ve son kontrol için). macOS'ta Terminal'de `python3 --version` yazınca bir sürüm görüyorsanız hazırsınız. Ek paket gerekmez.
+- **Python 3** (Adım 5 ve son kontrolde yapay zekânın yazacağı küçük programlar için). macOS'ta Terminal'de `python3 --version` yazınca bir sürüm görüyorsanız hazırsınız. Programlar yalnız Python'un kendi kütüphaneleriyle yazılabilir, ek paket gerekmez.
 - Adım 6 için bir **ana sayfa** ve **gizlilik politikası** adresi. Kendi siteniz yoksa ücretsiz bir sayfa (ör. GitHub Pages) yeterli. Gizlilik politikasında uygulamanın yalnız kendi kanalınızın verisini okuduğunu ve kimseyle paylaşmadığını yazmanız yeterli.
 - Google Cloud Console arayüzü İngilizce adlarla anlatılıyor; düğme adları zamanla küçük değişiklikler gösterebilir.
 
@@ -84,19 +84,38 @@ Bu, ajan kanalınıza erişmek istediğinde Google'ın size göstereceği izin s
 
 ## Adım 5: Kanalını bağla
 
-Bu klasördeki `kanal_bagla.py` betiğini, JSON dosyasının olduğu klasörde çalıştırın (ya da Claude Code gibi bir ajana çalıştırtın):
+Bu adımda Google'a "bu uygulama kanalıma erişebilir" diye izin veriyorsunuz ve karşılığında kalıcı bir anahtar (token) alıyorsunuz. Bunu tıklamayla değil, bilgisayarınızda bir kez çalışan küçük bir programla yapıyorsunuz. **Programı yapay zekânız yazar**; aşağıda ne yapması gerektiği eksiksiz tarif ediliyor.
 
-```bash
-python3 kanal_bagla.py client_secret.json token.json
-```
-
-1. Betik bir Google giriş adresi yazar. Adresi tarayıcıda açın.
+**Sizin göreceğiniz akış:**
+1. Program bir Google giriş adresi verir. Adresi tarayıcıda açın.
 2. Kanalın Google hesabını seçin. Kanal bir marka hesabındaysa o kanalı seçin.
 3. "Google hasn't verified this app" uyarısı çıkar. Kendi uygulamanız olduğu için bu normal: **Continue** deyin.
 4. İki izni de (YouTube ve Analytics) işaretleyip **Continue**.
-5. Tarayıcıda "Bağlandı" ve kanalınızın adı görünür; betik `token.json` dosyasını yazar.
+5. Tarayıcıda "Bağlandı" ve kanalınızın adı görünür; program `token.json` dosyasını yazar.
 
-Şifreyi ve izni siz verirsiniz. Ajana yalnız verdiğiniz iznin anahtarı (token) gider. Bu izni istediğiniz zaman Google hesabınızın güvenlik ayarlarındaki üçüncü taraf erişimlerinden kaldırabilirsiniz.
+Şifreyi ve izni siz verirsiniz; program şifrenizi hiç görmez. Ajana yalnız verdiğiniz iznin anahtarı (token) gider. Bu izni istediğiniz zaman Google hesabınızın güvenlik ayarlarındaki üçüncü taraf erişimlerinden kaldırabilirsiniz.
+
+<details>
+<summary><b>Yapay zekâ için tarif: kanal bağlama programı</b> (kod bilmiyorsanız bu bölümü olduğu gibi yapay zekânıza verin)</summary>
+
+Python 3 ile, yalnız standart kütüphane kullanarak (`json`, `http.server`, `urllib`, `secrets`, `hashlib`, `base64`) tek dosyalık bir program yaz. Program iki girdi alır: Adım 4'te indirilen istemci dosyasının yolu ve yazılacak token dosyasının yolu (ör. `token.json`).
+
+1. **İstemci dosyasını oku.** JSON'un `installed` anahtarı altındaki `client_id` ve `client_secret` değerlerini al. `installed` yoksa "Bu dosya Desktop app istemcisi değil" diye açık bir hata ver. Bu değerleri ekrana basma.
+2. **Güvenlik değerlerini üret.** Rastgele bir `state` değeri ve PKCE için rastgele bir `code_verifier` üret. `code_challenge`, `code_verifier`'ın SHA-256 özetinin base64url (sondaki `=` işaretleri atılmış) hâlidir; yöntem `S256`.
+3. **Giriş adresini kur ve kullanıcıya göster.** Adres `https://accounts.google.com/o/oauth2/v2/auth` olur ve şu parametreleri taşır:
+   - `client_id`
+   - `redirect_uri=http://127.0.0.1:8765` (bu bilgisayarda dinlenecek yerel adres; port boşsa başka bir port seç)
+   - `response_type=code`
+   - `scope` = `https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.force-ssl` (iki izin, araları boşluk)
+   - `access_type=offline` (kalıcı anahtar için şart)
+   - `prompt=consent` (kalıcı anahtarın her seferinde gelmesi için)
+   - `state`, `code_challenge`, `code_challenge_method=S256`
+4. **Dönüşü bekle.** `127.0.0.1:8765` adresinde küçük bir yerel web sunucusu aç. Google, kullanıcı izin verince tarayıcıyı bu adrese `?code=...&state=...` ile yönlendirir. Gelen `state` senin ürettiğinle aynı değilse işlemi reddet. `error` gelirse onu kullanıcıya göster. Kod gelmeyen istekleri (ör. favicon) yok say. Kullanıcıya en çok yaklaşık 30 dakika süre tanı.
+5. **Kodu anahtara çevir.** `https://oauth2.googleapis.com/token` adresine form olarak POST et: `code`, `client_id`, `client_secret`, `redirect_uri` (aynısı), `grant_type=authorization_code`, `code_verifier`. Cevapta `access_token` ve `refresh_token` gelir.
+6. **Anahtarı güvenle kaydet.** Token dosyasına yalnız `refresh_token`, `scope` ve `token_type` alanlarını yaz. Dosyayı yalnız sahibinin okuyabileceği izinle oluştur (Unix'te 600). `refresh_token` boş geldiyse bunu kullanıcıya açıkça söyle (bkz. Sorun giderme).
+7. **Kanalı doğrula.** `access_token` ile `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&mine=true` adresine `Authorization: Bearer ...` başlığıyla istek at. Gelen kanal adını ve abone sayısını hem tarayıcıda ("Bağlandı · <kanal adı> · <abone> abone") hem ekranda göster.
+8. Hiçbir gizli değeri (client_secret, kod, anahtarlar) ekrana ya da log'a yazma.
+</details>
 
 **Bitti mi?** Tarayıcıda "Bağlandı · <kanal adınız>" yazıyor ve klasörde `token.json` var.
 
@@ -114,11 +133,21 @@ Buradaki "yayına alma" **video yayınlamak değil**, uygulamayı test modundan 
 
 ## 9) Son kontrol: doğru kanal bağlı mı, veriler okunuyor mu?
 
-```bash
-python3 kanal_kontrol.py client_secret.json token.json
-```
+Bunun için de yapay zekânız küçük bir kontrol programı yazar. Program hiçbir şeyi değiştirmez, yalnız okur.
 
-Bu betik hiçbir şeyi değiştirmez, yalnız okur. Ekranda şunları görmelisiniz:
+<details>
+<summary><b>Yapay zekâ için tarif: son kontrol programı</b></summary>
+
+Python 3, yalnız standart kütüphane. Girdiler: istemci dosyası ve `token.json`.
+
+1. **Geçici anahtar al.** `https://oauth2.googleapis.com/token` adresine form olarak POST et: `client_id`, `client_secret` (istemci dosyasının `installed` alanından), `refresh_token` (token dosyasından), `grant_type=refresh_token`. Cevaptaki `access_token` yaklaşık bir saat geçerlidir.
+2. **Kanal (Data API).** `GET https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&mine=true`. Kanal adını yaz; `contentDetails.relatedPlaylists.uploads` yükleme listesinin kimliğidir.
+3. **Son videolar (Data API).** `GET https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=5&playlistId=<yükleme listesi>`. Her videonun tarihini ve başlığını yaz.
+4. **İzlenme (Analytics API).** `GET https://youtubeanalytics.googleapis.com/v2/reports?ids=channel==MINE&startDate=<28 gün önce>&endDate=<bugün>&metrics=views` (tarihler YYYY-AA-GG). Gelen sayıyı yaz.
+5. Üçü de geldiyse "Tamam: kanal doğru ve veriler okunabiliyor" yaz. Bir hata gelirse HTTP kodunu ve Google'ın hata mesajını göster, gizli değerleri gösterme.
+</details>
+
+Ekranda şunları görmelisiniz:
 
 - `Kanal:` satırında **sizin** kanalınızın adı,
 - `Son videolar (Data API):` altında son 5 videonuz,
@@ -128,7 +157,11 @@ Bu betik hiçbir şeyi değiştirmez, yalnız okur. Ekranda şunları görmelisi
 
 ## 10) İsteğe bağlı: Claude Code ile sayfa ve yükleme ajanı kur
 
-Bağlantı hazır olduktan sonra, Claude Code gibi bilgisayarınızda çalışan bir ajandan kendi araçlarınızı yazmasını isteyebilirsiniz. Örnek bir istek:
+Bağlantı hazır olduktan sonra, Claude Code gibi bilgisayarınızda çalışan bir ajandan kendi araçlarınızı yazmasını isteyebilirsiniz.
+
+**Örnek sayfa:** Bu klasördeki [`ornek-sayfa.html`](ornek-sayfa.html) dosyası, videoda gösterilen kanal sayfasının tasarım örneğidir: yeni video ve onay durumu, son video karnesi, ajanın önerileri, son 28 gün, ülkeler, izleyicinin bıraktığı an, aranan kelimeler, trafik kaynakları ve cevapsız yorumlar. **İçindeki bütün sayılar ve metinler uydurmadır**, hiçbir yere bağlanmaz. Dosyayı indirip tarayıcıda açarak görebilirsiniz. Dosyanın içindeki `ORNEK_VERI` bölümünde her alanın hangi API'den geleceği yazıyor; ajanınıza bu dosyayı verip "aynı düzeni benim kanalımın verisiyle kur" diyebilirsiniz.
+
+Örnek bir istek:
 
 > `client_secret.json` ve `token.json` ile YouTube kanalıma bağlıyım. Bana bilgisayarımda çalışan küçük bir sayfa yap: son videoların karnesi, izleyicinin bıraktığı an, ülkeler haritası, insanların beni bulduğu arama terimleri ve cevapsız yorumlar. Ayrıca bir yükleme ajanı yaz: bitmiş videoyu parça parça (kesilirse kaldığı yerden devam eden) yüklesin, konuşmayı yazıya döksün, başlık, açıklama, bölümler, etiketler ve altyazı taslağı hazırlasın. Kurallar: video her zaman gizli yüklensin; kanalda bir şey değiştiren her işlemden önce benim onayımı istesin; gizli dosyaları hiçbir yere göndermesin.
 
@@ -141,7 +174,7 @@ Videoda gösterilen sistem bu tarifle kurulmuş, ama kişisel ev sistemime bağl
 | Girişte `access_denied` ya da "uygulamaya erişiminiz yok" | Hesap test kullanıcısı değil (uygulama henüz test modunda) | Adım 3.6'da kanalın e-postasını ekleyin ya da Adım 6'yı yapın |
 | Bir hafta sonra `invalid_grant` hatası | Uygulama test modunda kalmış, token düştü | Adım 6'yı yapın, sonra Adım 5'i bir kez tekrarlayın |
 | `redirect_uri_mismatch` | İstemci türü "Web application" seçilmiş | Adım 4'ü **Desktop app** ile yeniden yapın |
-| Betik `KeyError: 'installed'` veriyor | Yanlış türde JSON | Aynı sebep: Desktop app istemcisi oluşturun |
+| Program "Desktop app istemcisi değil" diyor | Yanlış türde JSON | Aynı sebep: Desktop app istemcisi oluşturun |
 | Son kontrolde başka bir kanalın adı çıkıyor | Girişte yanlış kanal ya da marka hesabı seçilmiş | Adım 5'i tekrarlayın, doğru kanalı seçin |
 | Analytics satırında `403` | İzinlerden biri eksik ya da girişte işaretlenmemiş | Adım 3.5'i kontrol edin, Adım 5'i tekrarlayın ve iki izni de işaretleyin |
 | `quotaExceeded` | Günlük kota doldu | Ertesi gün tekrar deneyin |
