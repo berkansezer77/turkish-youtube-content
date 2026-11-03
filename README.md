@@ -9,11 +9,20 @@ Yapay zekâyı gerçek hayatta, evde ve işte en verimli şekilde nasıl kullana
 ***
 # YouTube API + yapay zekâ: kanalını yapay zekâya bağla
 
-<img src="videolar/youtube-api-yapay-zeka/images/ornek-sayfa-ust.png" width="750" alt="Örnek kanal sayfası">
+<img src="videolar/youtube-api-yapay-zeka/images/kanal-sayfasi.png" width="750" alt="YouTube ajanının kanal sayfası: son video, izlenme, tıklama oranı ve ülke haritası">
 
-YouTube'un üç API'si (Data, Analytics, Reporting) ile kanalınızı bir yapay zekâ ajanına bağlamanın adım adım rehberi. Kurulumu yapay zekânıza yaptırabilirsiniz; giriş ve izin her zaman sizde. Yanında, videoda gösterilen kanal sayfasının uydurma verili bir örneği var.
+*Videoda kurulan kanal sayfası, İngilizce kanalım Teach Me Smart Life üzerinde.*
 
-[Rehber ve örnek sayfa](videolar/youtube-api-yapay-zeka)
+YouTube'un üç API'si (Data, Analytics, Reporting) ile kanalınızı bir yapay zekâ ajanına bağlamanın adım adım rehberi. Kurulumu yapay zekânıza yaptırabilirsiniz; giriş ve izin her zaman sizde.
+
+**Nasıl kullanılır:**
+1. Kurulum rehberini açın: [rehber dosyası (README.md)](videolar/youtube-api-yapay-zeka/README.md)
+2. Dosyanın **tamamını** yapay zekânıza verin. En kolayı: [ham hâlini açın](https://raw.githubusercontent.com/berkansezer77/turkish-youtube-content/main/videolar/youtube-api-yapay-zeka/README.md), hepsini seçip kopyalayın ve sohbete yapıştırın. İsterseniz dosyayı indirip sohbete ekleyin.
+3. Sohbete şunu yazın: *"Bu rehberle YouTube kanalımı yapay zekâya bağlamama yardım et."*
+
+Yapay zekâ sizi adım adım yürütür. Videoda gösterilen sayfaya benzer bir sayfa isterseniz, klasördeki uydurma verili `ornek-sayfa.html` dosyasını da verin.
+
+[Klasörü aç: rehber, örnek sayfa ve görseller](videolar/youtube-api-yapay-zeka)
 
 ***
 
