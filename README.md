@@ -1,12 +1,33 @@
-# Turkish YouTube Content
+Türkçe YouTube kanalımdaki videoların eşlik sayfası. Videolarda "açıklamada vereceğim" dediğim rehberler, yönergeler ve örnekler burada. Her video için bir klasör var; bir rehberi kendi yapay zekânıza (Claude, ChatGPT vb.) verip "bu rehberle bana yardım et" demeniz yeterli.
 
-Türkçe YouTube kanalımdaki videoların eşlik dosyaları. Her video için ayrı bir klasör var; videoda "açıklamada vereceğim" dediğim rehberler, yönergeler ve örnekler burada.
+Yapay zekâyı gerçek hayatta, evde ve işte en verimli şekilde nasıl kullanabileceğinizi anlatıyorum. Kanalı takip etmek isterseniz:
 
-| Video | Klasör | İçinde ne var |
-|---|---|---|
-| YouTube API + yapay zekâ | [youtube-api-yapay-zeka](youtube-api-yapay-zeka/) | Kanalını yapay zekâya bağlama rehberi (kendi yapay zekânıza verebilirsiniz) ve uydurma verili örnek kanal sayfası |
+## YouTube
 
-Bir klasördeki `README.md` dosyasını kendi yapay zekânıza (Claude, ChatGPT vb.) verip "bu rehberle bana yardım et" demeniz yeterli.
+[Berkan Sezer](https://www.youtube.com/@benberkansezer)
+
+***
+# YouTube API + yapay zekâ: kanalını yapay zekâya bağla
+
+<img src="videolar/youtube-api-yapay-zeka/images/ornek-sayfa-ust.png" width="750" alt="Örnek kanal sayfası">
+
+YouTube'un üç API'si (Data, Analytics, Reporting) ile kanalınızı bir yapay zekâ ajanına bağlamanın adım adım rehberi. Kurulumu yapay zekânıza yaptırabilirsiniz; giriş ve izin her zaman sizde. Yanında, videoda gösterilen kanal sayfasının uydurma verili bir örneği var.
+
+[Rehber ve örnek sayfa](videolar/youtube-api-yapay-zeka)
+
+***
+
+## Klasör yapısı
+
+```
+videolar/
+└── youtube-api-yapay-zeka/
+    ├── README.md          rehber (yapay zekânıza verin)
+    ├── ornek-sayfa.html   örnek kanal sayfası, bütün veriler uydurma
+    └── images/            ekran görüntüleri
+```
+
+Her yeni video `videolar/` altında kendi klasörünü alır ve bu sayfaya görseliyle eklenir.
 
 ## Güvenlik
 
